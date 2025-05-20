@@ -1,0 +1,141 @@
+---
+- name: Install Docker, required software, and deploy containers
+  hosts: all
+
+  gather_facts: true
+  become: true
+  become_user: root
+
+# Based on: https://docs.docker.com/engine/install/debian/
+# Packages were pre-installed via Packer
+
+  vars:
+      # Read all of the key value pairs from the .env file in as environment variables
+      env_vars: "{{ dict(lookup('file', '.env') | regex_findall('^([^#][^=]+)=(.*)$', multiline=True)) }}"
+
+  tasks:
+  - name: Clean out packages prior to install
+    ansible.builtin.apt:
+      pkg:
+        - docker.io
+        - docker-doc
+        - docker-compose
+        - podman-docker
+        - containerd
+        - runc
+      state: absent
+      autoclean: true
+
+  - name: Perform a full-upgrade to ensure everything is updated
+    ansible.builtin.apt:
+      upgrade: dist
+      update_cache: true
+
+  - name: Install Ansible dependencies
+    ansible.builtin.apt:
+      name:
+        - python3
+        - python3-pip
+        - python3-pexpect
+        - python3-virtualenv
+        - python3-venv
+
+  - name: Check if reboot is requested by system from kernel/libs updates
+    ansible.builtin.stat:
+      path: /var/lib/reboot-required
+    register: reboot_required
+
+  - name: Reboot box if requested by system
+    ansible.builtin.command: |
+      sleep 10 && /sbin/shutdown -r now 'Rebooting box to update system libs/kernel as needed'
+    args:
+      removes: /var/run/reboot-required
+    async: 300
+    poll: 0
+    when: reboot_required.stat.exists
+
+  - name: Wait for system to become reachable again to continue
+    ansible.builtin.wait_for_connection:
+      delay: 60
+      timeout: 300
+    when: reboot_required.stat.exists
+
+  - name: Install prequisites and update/confirm other packages
+    ansible.builtin.apt:
+      pkg:
+        - acl
+        - ca-certificates
+        - curl
+        - gpg
+        - htop
+        - openssl
+        - openssh-server
+        - sudo
+        - vim
+      state: present
+      update_cache: true
+
+  - name: Add Docker GPG Apt key
+    ansible.builtin.apt_key:
+      url: https://download.docker.com/linux/debian/gpg
+      state: present
+
+  - name: Add Docker Repository
+    ansible.builtin.apt_repository:
+      repo: deb https://download.docker.com/linux/debian bookworm stable
+      state: present
+
+  - name: Update apt and install Docker packages
+    ansible.builtin.apt:
+      pkg:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+        - docker-buildx-plugin
+        - docker-compose-plugin
+      state: present
+      update_cache: true
+
+  - name: Ensure Docker service is started and set to start on boot
+    ansible.builtin.service:
+      name: docker
+      state: started
+      enabled: true
+
+  - name: Ensure the "docker" group exists
+    ansible.builtin.group:
+      name: docker
+      gid: '{{ env_vars.docker_uid }}'
+      state: present
+
+  - name: Ensure the "docker" user exists and is in the "docker" group
+    ansible.builtin.user:
+      name: docker
+      group: docker
+      uid: '{{ env_vars.docker_gid }}'
+      create_home: true
+      shell: /bin/bash
+
+  - name: Add the "docker" user to the "docker" group
+    ansible.builtin.user:
+      name: docker
+      groups: docker
+      append: true
+
+  - name: Ensure Docker group has permission to use Docker
+    ansible.builtin.file:
+      path: /var/run/docker.sock
+      state: file
+      owner: root
+      group: docker
+      mode: '0666'
+
+  - name: Ensure the "docker" user can run Docker without sudo
+    ansible.builtin.copy:
+      dest: /etc/sudoers.d/docker
+      content: "docker ALL=(ALL) NOPASSWD: /usr/bin/docker"
+      mode: '0440'
+
+  - name: Remove dependencies no longer required
+    ansible.builtin.apt:
+      autoclean: true
