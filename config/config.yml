@@ -35,10 +35,10 @@ ffmpeg:
 
 detectors:
   ov_0:
-    type: openvino
+    type: "openvino"
     device: CPU
   ov_1:
-    type: openvino
+    type: "openvino"
     device: CPU
 
 objects:
