@@ -153,17 +153,17 @@ cameras:
             - detect
   driveway:
     enabled: true
-      ffmpeg:
-        hwaccel_args: auto
-        inputs:
-          - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.12:554/cam/realmonitor?channel=1&subtype=0
-            roles:
-              - record
-              - audio
-          # by default, the detect stream is used for the live view in the browser
-          - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.12:554/cam/realmonitor?channel=1&subtype=2
-            roles:
-              - detect
+    ffmpeg:
+      hwaccel_args: auto
+      inputs:
+        - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.12:554/cam/realmonitor?channel=1&subtype=0
+          roles:
+            - record
+            - audio
+        # by default, the detect stream is used for the live view in the browser
+        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.12:554/cam/realmonitor?channel=1&subtype=2
+          roles:
+            - detect
   backyard:
     enabled: true
     ffmpeg:
