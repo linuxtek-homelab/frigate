@@ -1,9 +1,12 @@
 mqtt:
-  enabled: False
+  enabled: false
+
 ffmpeg:
   hwaccel_args: preset-intel-qsv-h265
   output_args:
-    record: preset-record-generic-audio-copy
+    # modification turns on audio recording (xxx using aac encoding xxx I changed to copy since cam outputs aac)
+    record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c:v copy -c:a copy
+
 detectors:
   ov_0:
     type: openvino
@@ -11,9 +14,11 @@ detectors:
   ov_1:
     type: openvino
     device: CPU
+
 database:
   path: /media/frigate_db/frigate.db
 # Default objects to track. Can be overridden at camera level
+
 objects:
   track:
     - person
@@ -23,6 +28,7 @@ objects:
       threshold: 0.8
     cat:
       threshold: 0.7
+
 audio: # <- enable audio events for all camera
   enabled: True
   # Optional: Configure the amount of seconds without detected audio to end the event (default: shown below)
@@ -47,6 +53,7 @@ audio: # <- enable audio events for all camera
     speech:
       # Minimum score that triggers an audio event (default: shown below)
       threshold: 0.8
+
 review:
   alerts:
     # Optional: labels that qualify as an alert
@@ -69,6 +76,7 @@ review:
       - scream
       - speech
       - yell
+
 motion:
   enabled: true
   # Optional: The percentage of the image used to detect lightning or other substantial changes where motion detection
@@ -107,12 +115,14 @@ record:
       #   motion - save all recordings segments for events with any detected motion
       #   active_objects - save all recording segments for event with active/moving objects
       mode: motion
+
 snapshots:
   enabled: true
   timestamp: true
   crop: true
   retain:
     default: 3000
+
 #---------------------------------------------------------------------------------------------------
 # CAMERAS
 #---------------------------------------------------------------------------------------------------
@@ -121,9 +131,6 @@ cameras:
     enabled: true
     ffmpeg:
       hwaccel_args: auto
-      output_args:
-        # modification turns on audio recording (xxx using aac encoding xxx I changed to copy since cam outputs aac)
-        record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c:v copy -c:a copy
       inputs:
       - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.10:554/cam/realmonitor?channel=1&subtype=0
         roles:
@@ -137,16 +144,13 @@ cameras:
   front_porch:
     enabled: true
     ffmpeg:
-      hwaccel_args: auto
-      output_args:
-        # modification turns on audio recording (xxx using aac encoding xxx I changed to copy since cam outputs aac)
-        record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c:v copy -c:a copy
+      hwaccel_args: auto      
       inputs:
       - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.11:554/cam/realmonitor?channel=1&subtype=0
         roles:
           - record
           - audio
-        # by default, the detect stream is used for the live view in the browser
+      # by default, the detect stream is used for the live view in the browser
       - path: 
           rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.11:554/cam/realmonitor?channel=1&subtype=2
         roles:
@@ -155,9 +159,6 @@ cameras:
     enabled: true
     ffmpeg:
       hwaccel_args: auto
-      output_args:
-        # modification turns on audio recording (xxx using aac encoding xxx I changed to copy since cam outputs aac)
-        record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c:v copy -c:a copy
       inputs:
       - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.12:554/cam/realmonitor?channel=1&subtype=0
         roles:
@@ -172,9 +173,6 @@ cameras:
     enabled: true
     ffmpeg:
       hwaccel_args: auto
-      output_args:
-        # modification turns on audio recording (xxx using aac encoding xxx I changed to copy since cam outputs aac)
-        record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c:v copy -c:a copy
       inputs:
       - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.13:554/cam/realmonitor?channel=1&subtype=0
         roles:
@@ -189,14 +187,12 @@ cameras:
     enabled: true
     ffmpeg:
       hwaccel_args: auto
-      output_args:
-        # modification turns on audio recording (xxx using aac encoding xxx I changed to copy since cam outputs aac)
-        record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c:v copy -c:a copy
       inputs:
       - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.14:554/cam/realmonitor?channel=1&subtype=0
         roles:
           - record
-          - audio        # by default, the detect stream is used for the live view in the browser
+          - audio        
+      # by default, the detect stream is used for the live view in the browser
       - path: 
           rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.14:554/cam/realmonitor?channel=1&subtype=2
         roles:
@@ -205,9 +201,6 @@ cameras:
     enabled: false
     ffmpeg:
       hwaccel_args: auto
-      output_args:
-        # modification turns on audio recording (xxx using aac encoding xxx I changed to copy since cam outputs aac)
-        record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c:v copy -c:a copy
       inputs:
       - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.15:554/cam/realmonitor?channel=1&subtype=0
         roles:
