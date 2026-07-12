@@ -230,12 +230,12 @@ cameras:
             - detect
 
 # Optional: Adjust sort order of cameras in the UI. Larger numbers come later
-  ui:
-  # By default the cameras are sorted alphabetically.
-    order: 0
-  # Optional: Whether or not to show the camera in the Frigate UI
-    dashboard: true
-  detect:
-    width: 1280
-    height: 720
-    fps: 5
+ui:
+# By default the cameras are sorted alphabetically.
+  order: 0
+# Optional: Whether or not to show the camera in the Frigate UI
+  dashboard: true
+detect:
+  width: 1280
+  height: 720
+  fps: 5
