@@ -12,6 +12,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /mnt/NAS/Server/Frigate/config:/config
       - /mnt/Surveilance/frigate:/media/frigate
+      - /mnt/frigate_db:/media/frigate_db
       - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
         target: /tmp/cache
         tmpfs:

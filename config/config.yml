@@ -13,7 +13,7 @@ detectors:
     device: CPU
 
 database:
-  path: /media/frigate/config/frigate.db
+  path: /media/frigate_db/frigate.db
 
 audio: # <- enable audio events for all camera
   enabled: True
