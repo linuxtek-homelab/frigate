@@ -2,7 +2,11 @@ mqtt:
   enabled: false
 
 ffmpeg:
-  hwaccel_args: preset-intel-qsv-h265
+  hwaccel_args: "preset-intel-qsv-h265"
+  input_args: "preset-rtsp-generic"
+  output_args: "preset-record-generic-audio-copy"
+
+  retry_interval: 10
 
 detectors:
   ov_0:
@@ -128,7 +132,6 @@ cameras:
   main_floor:
     enabled: true
     ffmpeg:
-      hwaccel_args: auto
       inputs:
         - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.10:554/cam/realmonitor?channel=1&subtype=0
           roles:
@@ -140,8 +143,7 @@ cameras:
             - detect
   front_porch:
     enabled: true
-    ffmpeg:
-      hwaccel_args: auto      
+    ffmpeg:    
       inputs:
         - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.11:554/cam/realmonitor?channel=1&subtype=0
           roles:
@@ -154,7 +156,6 @@ cameras:
   driveway:
     enabled: true
     ffmpeg:
-      hwaccel_args: auto
       inputs:
         - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.12:554/cam/realmonitor?channel=1&subtype=0
           roles:
@@ -167,7 +168,6 @@ cameras:
   backyard:
     enabled: true
     ffmpeg:
-      hwaccel_args: auto
       inputs:
         - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.13:554/cam/realmonitor?channel=1&subtype=0
           roles:
@@ -180,7 +180,6 @@ cameras:
   master_bedroom:
     enabled: true
     ffmpeg:
-      hwaccel_args: auto
       inputs:
         - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.14:554/cam/realmonitor?channel=1&subtype=0
           roles:
@@ -193,7 +192,6 @@ cameras:
   basement:
     enabled: true
     ffmpeg:
-      hwaccel_args: auto
       inputs:
         - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.15:554/cam/realmonitor?channel=1&subtype=0
           roles:
