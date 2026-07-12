@@ -127,7 +127,6 @@ snapshots:
 cameras:
   main_floor:
     enabled: true
-    dashboard: true
     ffmpeg:
       hwaccel_args: auto
       inputs:
@@ -141,7 +140,6 @@ cameras:
             - detect
   front_porch:
     enabled: true
-    dashboard: true
     ffmpeg:
       hwaccel_args: auto      
       inputs:
@@ -155,7 +153,6 @@ cameras:
             - detect
   driveway:
     enabled: true
-    dashboard: true
       ffmpeg:
         hwaccel_args: auto
         inputs:
@@ -169,7 +166,6 @@ cameras:
               - detect
   backyard:
     enabled: true
-    dashboard: true
     ffmpeg:
       hwaccel_args: auto
       inputs:
@@ -183,7 +179,6 @@ cameras:
             - detect
   master_bedroom:
     enabled: true
-    dashboard: true
     ffmpeg:
       hwaccel_args: auto
       inputs:
@@ -197,7 +192,6 @@ cameras:
             - detect
   basement:
     enabled: true
-    dashboard: true
     ffmpeg:
       hwaccel_args: auto
       inputs:
