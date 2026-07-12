@@ -26,7 +26,6 @@ auth:
 
 ffmpeg:
   path: "default"
-  hwaccel_args: "preset-intel-qsv-h265"
   input_args: preset-rtsp-generic
   output_args: 
     record: preset-record-generic-audio-copy
@@ -87,7 +86,6 @@ review:
       - person
       - cat
       - bark
-      - cat
       - fire_alarm
       - scream
       - speech
@@ -97,7 +95,6 @@ review:
       - person
       - cat
       - bark
-      - cat
       - fire_alarm
       - scream
       - speech
@@ -118,7 +115,7 @@ record:
   enabled: true
   # Optional: Number of minutes to wait between cleanup runs (default: shown below)
   # This can be used to reduce the frequency of deleting recording segments from disk if you want to minimize i/o
-  expire_interval: 1440
+  expire_interval: 120
   retain:
     # Optional: Number of days to retain recordings regardless of events (default: shown below)
     # NOTE: This should be set to 0 and retention should be defined in events section below
@@ -136,7 +133,7 @@ record:
     # Optional: Number of seconds after the event to include (default: shown below)
     post_capture: 10
     retain:
-      default: 3000 # About 8 years
+      default: 365 # About 8 years
       # Optional: Mode for retention. (default: shown below)
       #   all - save all recording segments for events regardless of activity
       #   motion - save all recordings segments for events with any detected motion
@@ -145,7 +142,7 @@ record:
 
 detect:
   # Optional: enables detection for the camera (default: shown below)
-  enabled: False
+  enabled: true
   # Optional: width of the frame for the input with the detect role (default: use native stream resolution)
   width: 1280
   # Optional: height of the frame for the input with the detect role (default: use native stream resolution)
@@ -163,7 +160,7 @@ snapshots:
   timestamp: true
   crop: true
   retain:
-    default: 3000
+    default: 365
 
 #---------------------------------------------------------------------------------------------------
 # CAMERAS
@@ -174,7 +171,7 @@ cameras:
     type: "generic"
     ffmpeg:
       inputs:
-        - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.10:554/cam/realmonitor?channel=1&subtype=0
+        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.10:554/cam/realmonitor?channel=1&subtype=0
           roles:
             - record
             - audio
@@ -187,7 +184,7 @@ cameras:
     type: "generic"
     ffmpeg:    
       inputs:
-        - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.11:554/cam/realmonitor?channel=1&subtype=0
+        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.11:554/cam/realmonitor?channel=1&subtype=0
           roles:
             - record
             - audio
@@ -200,7 +197,7 @@ cameras:
     type: "generic"
     ffmpeg:
       inputs:
-        - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.12:554/cam/realmonitor?channel=1&subtype=0
+        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.12:554/cam/realmonitor?channel=1&subtype=0
           roles:
             - record
             - audio
@@ -213,7 +210,7 @@ cameras:
     type: "generic"
     ffmpeg:
       inputs:
-        - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.13:554/cam/realmonitor?channel=1&subtype=0
+        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.13:554/cam/realmonitor?channel=1&subtype=0
           roles:
             - record
             - audio
@@ -226,7 +223,7 @@ cameras:
     type: "generic"
     ffmpeg:
       inputs:
-        - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.14:554/cam/realmonitor?channel=1&subtype=0
+        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.14:554/cam/realmonitor?channel=1&subtype=0
           roles:
             - record
             - audio        
