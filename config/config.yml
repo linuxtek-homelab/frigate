@@ -1,0 +1,57 @@
+mqtt:
+  enabled: False
+
+ffmpeg:
+  hwaccel_args: preset-intel-qsv-h265
+
+detectors:
+  ov_0:
+    type: openvino
+    device: CPU
+  ov_1:
+    type: openvino
+    device: CPU
+
+cameras:
+  main_floor:
+    enabled: False
+    ffmpeg:
+      inputs:
+        - path: rtsp://admin:${FRIGATE_RTSP_PASSWORD}@192.168.25.10:554/cam/realmonitor?channel=1&subtype=0
+          roles:
+            - detect
+  front_porch:
+    enabled: False
+    ffmpeg:
+      inputs:
+        - path: rtsp://admin:${FRIGATE_RTSP_PASSWORD}@192.168.25.11:554/cam/realmonitor?channel=1&subtype=0
+          roles:
+            - detect
+  driveway:
+    enabled: False
+    ffmpeg:
+      inputs:
+        - path: rtsp://admin:${FRIGATE_RTSP_PASSWORD}@192.168.25.13:554/cam/realmonitor?channel=1&subtype=0
+          roles:
+            - detect
+  backyard:
+    enabled: False
+    ffmpeg:
+      inputs:
+        - path: rtsp://admin:${FRIGATE_RTSP_PASSWORD}@192.168.25.13:554/cam/realmonitor?channel=1&subtype=0
+          roles:
+            - detect
+  master_bedroom:
+    enabled: False
+    ffmpeg:
+      inputs:
+        - path: rtsp://admin:${FRIGATE_RTSP_PASSWORD}@192.168.25.14:554/cam/realmonitor?channel=1&subtype=0
+          roles:
+            - detect
+  basement:
+    enabled: False
+    ffmpeg:
+      inputs:
+        - path: rtsp://admin:{FRIGATE_RTSP_PASSWORD}@192.168.25.15:554/cam/realmonitor?channel=1&subtype=0
+          roles:
+            - detect

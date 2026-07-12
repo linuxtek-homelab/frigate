@@ -1,8 +1,7 @@
-version: "3.9"
 services:
   frigate:
     container_name: frigate
-    privileged: true # this may not be necessary for all setups
+    privileged: true
     restart: unless-stopped
     stop_grace_period: 30s # allow enough time to shut down the various services
     image: ghcr.io/blakeblackshear/frigate:stable
@@ -11,8 +10,8 @@ services:
       - /dev/dri/renderD128:/dev/dri/renderD128 # For intel hwaccel, needs to be updated for your hardware
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /path/to/your/config:/config
-      - /path/to/your/storage:/media/frigate
+      - /mnt/NAS/Server/Frigate/config:/config
+      - /mnt/Surveilance/frigate:/media/frigate
       - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
         target: /tmp/cache
         tmpfs:
@@ -24,4 +23,4 @@ services:
       - "8555:8555/tcp" # WebRTC over tcp
       - "8555:8555/udp" # WebRTC over udp
     environment:
-      FRIGATE_RTSP_PASSWORD: "password"
+      FRIGATE_RTSP_PASSWORD: ${ENV_FRIGATE_RTSP_PASSWORD}
