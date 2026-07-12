@@ -12,6 +12,9 @@ detectors:
     type: openvino
     device: CPU
 
+audio: # <- enable audio events for all camera
+  enabled: True
+
 cameras:
   main_floor:
     enabled: False
@@ -55,3 +58,21 @@ cameras:
         - path: rtsp://admin:{FRIGATE_RTSP_PASSWORD}@192.168.25.15:554/cam/realmonitor?channel=1&subtype=0
           roles:
             - detect
+
+record:
+  enabled: True
+  motion:
+    days: 30
+  alerts:
+    retain:
+      days: 90
+      mode: motion
+  detections:
+    retain:
+      days: 90
+      mode: motion
+
+snapshots:
+  enabled: True
+  retain:
+    default: 30
