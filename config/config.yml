@@ -1,12 +1,9 @@
 mqtt:
   enabled: False
-
 ffmpeg:
   hwaccel_args: preset-intel-qsv-h265
   output_args:
     record: preset-record-generic-audio-copy
-
-
 detectors:
   ov_0:
     type: openvino
@@ -14,71 +11,227 @@ detectors:
   ov_1:
     type: openvino
     device: CPU
-
 database:
   path: /media/frigate_db/frigate.db
-
+# Default objects to track. Can be overridden at camera level
+objects:
+  track:
+    - person
+    - cat
+  filters:
+    person:
+      threshold: 0.8
+    cat:
+      threshold: 0.7
 audio: # <- enable audio events for all camera
   enabled: True
-
+  # Optional: Configure the amount of seconds without detected audio to end the event (default: shown below)
+  max_not_heard: 30
+  # Optional: Configure the min rms volume required to run audio detection (default: shown below)
+  # As a rule of thumb:
+  #  - 200 - high sensitivity
+  #  - 500 - medium sensitivity
+  #  - 1000 - low sensitivity
+  min_volume: 50
+  # Optional: Types of audio to listen for (default: shown below)
+  listen:
+    - bark
+    - cat
+    - fire_alarm
+    - scream
+    - speech
+    - yell
+  # Optional: Filters to configure detection.
+  filters:
+    # Label that matches label in listen config.
+    speech:
+      # Minimum score that triggers an audio event (default: shown below)
+      threshold: 0.8
+review:
+  alerts:
+    # Optional: labels that qualify as an alert
+    labels:
+      - person
+      - cat
+      - bark
+      - cat
+      - fire_alarm
+      - scream
+      - speech
+      - yell
+  detections:
+    labels:
+      - person
+      - cat
+      - bark
+      - cat
+      - fire_alarm
+      - scream
+      - speech
+      - yell
+motion:
+  enabled: true
+  # Optional: The percentage of the image used to detect lightning or other substantial changes where motion detection
+  # needs to recalibrate. (default: shown below)
+  # Increasing this value will make motion detection more likely to consider lightning or ir mode changes as valid motion.
+  # Decreasing this value will make motion detection more likely to ignore large amounts of motion such as a person approaching
+  # a doorbell camera.
+  lightning_threshold: 0.8
+  # Optional: Delay when updating camera motion through MQTT from ON -> OFF (default: shown below).
+  mqtt_off_delay: 30
+record:
+  enabled: true
+  # Optional: Number of minutes to wait between cleanup runs (default: shown below)
+  # This can be used to reduce the frequency of deleting recording segments from disk if you want to minimize i/o
+  expire_interval: 1440
+  retain:
+    # Optional: Number of days to retain recordings regardless of events (default: shown below)
+    # NOTE: This should be set to 0 and retention should be defined in events section below
+    #       if you only want to retain recordings of events.
+    days: 7
+    # Optional: Mode for retention. Available options are: all, motion, and active_objects
+    #   all - save all recording segments regardless of activity
+    #   motion - save all recordings segments with any detected motion
+    #   active_objects - save all recording segments with active/moving objects
+    # NOTE: this mode only applies when the days setting above is greater than 0
+    mode: all
+  events:
+    # Optional: Number of seconds before the event to include (default: shown below)
+    pre_capture: 10
+    # Optional: Number of seconds after the event to include (default: shown below)
+    post_capture: 10
+    retain:
+      default: 3000 # About 8 years
+      # Optional: Mode for retention. (default: shown below)
+      #   all - save all recording segments for events regardless of activity
+      #   motion - save all recordings segments for events with any detected motion
+      #   active_objects - save all recording segments for event with active/moving objects
+      mode: motion
+snapshots:
+  enabled: true
+  timestamp: true
+  crop: true
+  retain:
+    default: 3000
+#---------------------------------------------------------------------------------------------------
+# CAMERAS
+#---------------------------------------------------------------------------------------------------
 cameras:
   main_floor:
-    enabled: False
+    enabled: true
     ffmpeg:
+      hwaccel_args: auto
+      output_args:
+        # modification turns on audio recording (xxx using aac encoding xxx I changed to copy since cam outputs aac)
+        record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c:v copy -c:a copy
       inputs:
-        - path: rtsp://admin:${FRIGATE_RTSP_PASSWORD}@192.168.25.10:554/cam/realmonitor?channel=1&subtype=0
+        - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.10:554/cam/realmonitor?channel=1&subtype=0
+          roles:
+            - record
+            - audio
+        # by default, the detect stream is used for the live view in the browser
+        - path: 
+            rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.10:554/cam/realmonitor?channel=1&subtype=2
           roles:
             - detect
   front_porch:
-    enabled: False
+    enabled: true
     ffmpeg:
+      hwaccel_args: auto
+      output_args:
+        # modification turns on audio recording (xxx using aac encoding xxx I changed to copy since cam outputs aac)
+        record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c:v copy -c:a copy
       inputs:
-        - path: rtsp://admin:${FRIGATE_RTSP_PASSWORD}@192.168.25.11:554/cam/realmonitor?channel=1&subtype=0
+        - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.11:554/cam/realmonitor?channel=1&subtype=0
+          roles:
+            - record
+            - audio
+          # by default, the detect stream is used for the live view in the browser
+        - path: 
+            rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.11:554/cam/realmonitor?channel=1&subtype=2
           roles:
             - detect
   driveway:
-    enabled: False
+    enabled: true
     ffmpeg:
+      hwaccel_args: auto
+      output_args:
+        # modification turns on audio recording (xxx using aac encoding xxx I changed to copy since cam outputs aac)
+        record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c:v copy -c:a copy
       inputs:
-        - path: rtsp://admin:${FRIGATE_RTSP_PASSWORD}@192.168.25.13:554/cam/realmonitor?channel=1&subtype=0
+        - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.12:554/cam/realmonitor?channel=1&subtype=0
+          roles:
+            - record
+            - audio
+        # by default, the detect stream is used for the live view in the browser
+        - path: 
+            rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.12:554/cam/realmonitor?channel=1&subtype=2
           roles:
             - detect
   backyard:
-    enabled: False
+    enabled: true
     ffmpeg:
+      hwaccel_args: auto
+      output_args:
+        # modification turns on audio recording (xxx using aac encoding xxx I changed to copy since cam outputs aac)
+        record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c:v copy -c:a copy
       inputs:
-        - path: rtsp://admin:${FRIGATE_RTSP_PASSWORD}@192.168.25.13:554/cam/realmonitor?channel=1&subtype=0
+        - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.13:554/cam/realmonitor?channel=1&subtype=0
+          roles:
+            - record
+            - audio
+        # by default, the detect stream is used for the live view in the browser
+        - path: 
+            rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.13:554/cam/realmonitor?channel=1&subtype=2
           roles:
             - detect
   master_bedroom:
-    enabled: False
+    enabled: true
     ffmpeg:
+      hwaccel_args: auto
+      output_args:
+        # modification turns on audio recording (xxx using aac encoding xxx I changed to copy since cam outputs aac)
+        record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c:v copy -c:a copy
       inputs:
-        - path: rtsp://admin:${FRIGATE_RTSP_PASSWORD}@192.168.25.14:554/cam/realmonitor?channel=1&subtype=0
+        - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.14:554/cam/realmonitor?channel=1&subtype=0
+          roles:
+            - record
+            - audio        # by default, the detect stream is used for the live view in the browser
+        - path: 
+            rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.14:554/cam/realmonitor?channel=1&subtype=2
           roles:
             - detect
   basement:
-    enabled: False
+    enabled: false
     ffmpeg:
+      hwaccel_args: auto
+      output_args:
+        # modification turns on audio recording (xxx using aac encoding xxx I changed to copy since cam outputs aac)
+        record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c:v copy -c:a copy
       inputs:
-        - path: rtsp://admin:{FRIGATE_RTSP_PASSWORD}@192.168.25.15:554/cam/realmonitor?channel=1&subtype=0
+        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.15:554/cam/realmonitor?channel=1&subtype=0
+          roles:
+            - record
+            - audio
+        # by default, the detect stream is used for the live view in the browser
+        - path: 
+            rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.15:554/cam/realmonitor?channel=1&subtype=2
           roles:
             - detect
 
-record:
-  enabled: True
-  motion:
-    days: 30
-  alerts:
-    retain:
-      days: 90
-      mode: motion
-  detections:
-    retain:
-      days: 90
-      mode: motion
-
-snapshots:
-  enabled: True
-  retain:
-    default: 30
+# Optional: Adjust sort order of cameras in the UI. Larger numbers come later
+  ui:
+  # By default the cameras are sorted alphabetically.
+    order: 0
+  # Optional: Whether or not to show the camera in the Frigate UI
+    dashboard: true
+  detect:
+    width: 1280
+    height: 720
+    fps: 5
+  live:
+    # Optional: Set the name of the stream configured in go2rtc
+    # that should be used for live view in frigate WebUI. (default: name of camera)
+    # NOTE: In most cases this should be set at the camera level only.
+    height: 2160
+    quality: 8
