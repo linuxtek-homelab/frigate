@@ -2,9 +2,9 @@ mqtt:
   enabled: false
 
 ffmpeg:
-  hwaccel_args: "preset-intel-qsv-h265"
-  input_args: "preset-rtsp-generic"
-  output_args: "preset-record-generic-audio-copy"
+  hwaccel_args: preset-intel-qsv-h265
+  input_args: preset-rtsp-generic
+  output_args: preset-record-generic-audio-copy
 
   retry_interval: 10
 
