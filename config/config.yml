@@ -12,6 +12,9 @@ detectors:
     type: openvino
     device: CPU
 
+database:
+  path: /media/frigate/frigate.db
+
 audio: # <- enable audio events for all camera
   enabled: True
 
