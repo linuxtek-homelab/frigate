@@ -125,15 +125,15 @@ cameras:
         # modification turns on audio recording (xxx using aac encoding xxx I changed to copy since cam outputs aac)
         record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c:v copy -c:a copy
       inputs:
-        - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.10:554/cam/realmonitor?channel=1&subtype=0
-          roles:
-            - record
-            - audio
-        # by default, the detect stream is used for the live view in the browser
-        - path: 
-            rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.10:554/cam/realmonitor?channel=1&subtype=2
-          roles:
-            - detect
+      - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.10:554/cam/realmonitor?channel=1&subtype=0
+        roles:
+          - record
+          - audio
+      # by default, the detect stream is used for the live view in the browser
+      - path: 
+          rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.10:554/cam/realmonitor?channel=1&subtype=2
+        roles:
+          - detect
   front_porch:
     enabled: true
     ffmpeg:
@@ -142,15 +142,15 @@ cameras:
         # modification turns on audio recording (xxx using aac encoding xxx I changed to copy since cam outputs aac)
         record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c:v copy -c:a copy
       inputs:
-        - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.11:554/cam/realmonitor?channel=1&subtype=0
-          roles:
-            - record
-            - audio
-          # by default, the detect stream is used for the live view in the browser
-        - path: 
-            rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.11:554/cam/realmonitor?channel=1&subtype=2
-          roles:
-            - detect
+      - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.11:554/cam/realmonitor?channel=1&subtype=0
+        roles:
+          - record
+          - audio
+        # by default, the detect stream is used for the live view in the browser
+      - path: 
+          rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.11:554/cam/realmonitor?channel=1&subtype=2
+        roles:
+          - detect
   driveway:
     enabled: true
     ffmpeg:
@@ -159,15 +159,15 @@ cameras:
         # modification turns on audio recording (xxx using aac encoding xxx I changed to copy since cam outputs aac)
         record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c:v copy -c:a copy
       inputs:
-        - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.12:554/cam/realmonitor?channel=1&subtype=0
-          roles:
-            - record
-            - audio
-        # by default, the detect stream is used for the live view in the browser
-        - path: 
-            rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.12:554/cam/realmonitor?channel=1&subtype=2
-          roles:
-            - detect
+      - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.12:554/cam/realmonitor?channel=1&subtype=0
+        roles:
+          - record
+          - audio
+      # by default, the detect stream is used for the live view in the browser
+      - path: 
+          rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.12:554/cam/realmonitor?channel=1&subtype=2
+        roles:
+          - detect
   backyard:
     enabled: true
     ffmpeg:
@@ -176,15 +176,15 @@ cameras:
         # modification turns on audio recording (xxx using aac encoding xxx I changed to copy since cam outputs aac)
         record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c:v copy -c:a copy
       inputs:
-        - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.13:554/cam/realmonitor?channel=1&subtype=0
-          roles:
-            - record
-            - audio
-        # by default, the detect stream is used for the live view in the browser
-        - path: 
-            rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.13:554/cam/realmonitor?channel=1&subtype=2
-          roles:
-            - detect
+      - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.13:554/cam/realmonitor?channel=1&subtype=0
+        roles:
+          - record
+          - audio
+      # by default, the detect stream is used for the live view in the browser
+      - path: 
+          rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.13:554/cam/realmonitor?channel=1&subtype=2
+        roles:
+          - detect
   master_bedroom:
     enabled: true
     ffmpeg:
@@ -193,14 +193,14 @@ cameras:
         # modification turns on audio recording (xxx using aac encoding xxx I changed to copy since cam outputs aac)
         record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c:v copy -c:a copy
       inputs:
-        - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.14:554/cam/realmonitor?channel=1&subtype=0
-          roles:
-            - record
-            - audio        # by default, the detect stream is used for the live view in the browser
-        - path: 
-            rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.14:554/cam/realmonitor?channel=1&subtype=2
-          roles:
-            - detect
+      - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.14:554/cam/realmonitor?channel=1&subtype=0
+        roles:
+          - record
+          - audio        # by default, the detect stream is used for the live view in the browser
+      - path: 
+          rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.14:554/cam/realmonitor?channel=1&subtype=2
+        roles:
+          - detect
   basement:
     enabled: false
     ffmpeg:
@@ -209,15 +209,15 @@ cameras:
         # modification turns on audio recording (xxx using aac encoding xxx I changed to copy since cam outputs aac)
         record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c:v copy -c:a copy
       inputs:
-        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.15:554/cam/realmonitor?channel=1&subtype=0
-          roles:
-            - record
-            - audio
-        # by default, the detect stream is used for the live view in the browser
-        - path: 
-            rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.15:554/cam/realmonitor?channel=1&subtype=2
-          roles:
-            - detect
+      - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.15:554/cam/realmonitor?channel=1&subtype=0
+        roles:
+          - record
+          - audio
+      # by default, the detect stream is used for the live view in the browser
+      - path: 
+          rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.15:554/cam/realmonitor?channel=1&subtype=2
+        roles:
+          - detect
 
 # Optional: Adjust sort order of cameras in the UI. Larger numbers come later
   ui:
