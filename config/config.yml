@@ -32,17 +32,30 @@ ffmpeg:
   retry_interval: 10
   apple_compatibility: false
 
+model:
+  path: /config/ssdlite_mobilenet_v2.xml
+
 detectors:
   ov_0:
-    type: "openvino"
-    device: CPU
+    type: openvino
+    device: AUTO # Set to CPU, GPU, etc., based on your hardware
     model:
-      path: /openvino-model/fp16/ssdlite_mobilenet_v2.xml
+      width: 300
+      height: 300
+      input_tensor: nhwc
+      input_pixel_format: bgr
+      path: /openvino-model/ssdlite_mobilenet_v2.xml
+      labelmap_path: /openvino-model/coco_91cl_bkgr.txt
   ov_1:
-    type: "openvino"
-    device: CPU
+    type: openvino
+    device: AUTO # Set to CPU, GPU, etc., based on your hardware
     model:
-      path: /openvino-model/fp16/ssdlite_mobilenet_v2.xml
+      width: 300
+      height: 300
+      input_tensor: nhwc
+      input_pixel_format: bgr
+      path: /openvino-model/ssdlite_mobilenet_v2.xml
+      labelmap_path: /openvino-model/coco_91cl_bkgr.txt
 
 objects:
   track:
