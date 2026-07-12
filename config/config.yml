@@ -132,85 +132,84 @@ cameras:
     ffmpeg:
       hwaccel_args: auto
       inputs:
-      - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.10:554/cam/realmonitor?channel=1&subtype=0
-        roles:
-          - record
-          - audio
-      # by default, the detect stream is used for the live view in the browser
-      - path: 
-          rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.10:554/cam/realmonitor?channel=1&subtype=2
-        roles:
-          - detect
+        - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.10:554/cam/realmonitor?channel=1&subtype=0
+          roles:
+            - record
+            - audio
+        # by default, the detect stream is used for the live view in the browser
+        - path: 
+            rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.10:554/cam/realmonitor?channel=1&subtype=2
+          roles:
+            - detect
   front_porch:
     enabled: true
     ffmpeg:
       hwaccel_args: auto      
       inputs:
-      - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.11:554/cam/realmonitor?channel=1&subtype=0
-        roles:
-          - record
-          - audio
+        - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.11:554/cam/realmonitor?channel=1&subtype=0
+          roles:
+            - record
+            - audio
       # by default, the detect stream is used for the live view in the browser
-      - path: 
-          rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.11:554/cam/realmonitor?channel=1&subtype=2
-        roles:
-          - detect
+        - path: 
+            rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.11:554/cam/realmonitor?channel=1&subtype=2
+          roles:
+            - detect
   driveway:
     enabled: true
     ffmpeg:
       hwaccel_args: auto
       inputs:
-      - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.12:554/cam/realmonitor?channel=1&subtype=0
-        roles:
-          - record
-          - audio
-      # by default, the detect stream is used for the live view in the browser
-      - path: 
-          rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.12:554/cam/realmonitor?channel=1&subtype=2
-        roles:
-          - detect
+        - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.12:554/cam/realmonitor?channel=1&subtype=0
+          roles:
+            - record
+            - audio
+        # by default, the detect stream is used for the live view in the browser
+        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.12:554/cam/realmonitor?channel=1&subtype=2
+          roles:
+            - detect
   backyard:
     enabled: true
     ffmpeg:
       hwaccel_args: auto
       inputs:
-      - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.13:554/cam/realmonitor?channel=1&subtype=0
-        roles:
-          - record
-          - audio
-      # by default, the detect stream is used for the live view in the browser
-      - path: 
-          rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.13:554/cam/realmonitor?channel=1&subtype=2
-        roles:
-          - detect
+        - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.13:554/cam/realmonitor?channel=1&subtype=0
+          roles:
+            - record
+            - audio
+        # by default, the detect stream is used for the live view in the browser
+        - path: 
+            rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.13:554/cam/realmonitor?channel=1&subtype=2
+          roles:
+            - detect
   master_bedroom:
     enabled: true
     ffmpeg:
       hwaccel_args: auto
       inputs:
-      - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.14:554/cam/realmonitor?channel=1&subtype=0
-        roles:
-          - record
-          - audio        
-      # by default, the detect stream is used for the live view in the browser
-      - path: 
-          rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.14:554/cam/realmonitor?channel=1&subtype=2
-        roles:
-          - detect
+        - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.14:554/cam/realmonitor?channel=1&subtype=0
+          roles:
+            - record
+            - audio        
+        # by default, the detect stream is used for the live view in the browser
+        - path: 
+            rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.14:554/cam/realmonitor?channel=1&subtype=2
+          roles:
+            - detect
   basement:
     enabled: false
     ffmpeg:
       hwaccel_args: auto
       inputs:
-      - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.15:554/cam/realmonitor?channel=1&subtype=0
-        roles:
-          - record
-          - audio
-      # by default, the detect stream is used for the live view in the browser
-      - path: 
-          rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.15:554/cam/realmonitor?channel=1&subtype=2
-        roles:
-          - detect
+        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.15:554/cam/realmonitor?channel=1&subtype=0
+          roles:
+            - record
+            - audio
+        # by default, the detect stream is used for the live view in the browser
+        - path: 
+            rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.15:554/cam/realmonitor?channel=1&subtype=2
+          roles:
+            - detect
 
 # Optional: Adjust sort order of cameras in the UI. Larger numbers come later
   ui:
@@ -222,9 +221,3 @@ cameras:
     width: 1280
     height: 720
     fps: 5
-  live:
-    # Optional: Set the name of the stream configured in go2rtc
-    # that should be used for live view in frigate WebUI. (default: name of camera)
-    # NOTE: In most cases this should be set at the camera level only.
-    height: 2160
-    quality: 8
