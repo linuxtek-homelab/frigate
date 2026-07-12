@@ -87,6 +87,7 @@ motion:
   lightning_threshold: 0.8
   # Optional: Delay when updating camera motion through MQTT from ON -> OFF (default: shown below).
   mqtt_off_delay: 30
+
 record:
   enabled: true
   # Optional: Number of minutes to wait between cleanup runs (default: shown below)
@@ -137,8 +138,7 @@ cameras:
             - record
             - audio
         # by default, the detect stream is used for the live view in the browser
-        - path: 
-            rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.10:554/cam/realmonitor?channel=1&subtype=2
+        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.10:554/cam/realmonitor?channel=1&subtype=2
           roles:
             - detect
   front_porch:
