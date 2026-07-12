@@ -130,12 +130,12 @@ cameras:
     ffmpeg:
       hwaccel_args: auto
       inputs:
-        - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.10:554/cam/realmonitor?channel=1&subtype=0
+        - path: "rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.10:554/cam/realmonitor?channel=1&subtype=0"
           roles:
             - record
             - audio
         # by default, the detect stream is used for the live view in the browser
-        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.10:554/cam/realmonitor?channel=1&subtype=2
+        - path: "rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.10:554/cam/realmonitor?channel=1&subtype=2"
           roles:
             - detect
   front_porch:
@@ -143,13 +143,12 @@ cameras:
     ffmpeg:
       hwaccel_args: auto      
       inputs:
-        - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.11:554/cam/realmonitor?channel=1&subtype=0
+        - path: "rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.11:554/cam/realmonitor?channel=1&subtype=0"
           roles:
             - record
             - audio
       # by default, the detect stream is used for the live view in the browser
-        - path: 
-            rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.11:554/cam/realmonitor?channel=1&subtype=2
+        - path: "rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.11:554/cam/realmonitor?channel=1&subtype=2"
           roles:
             - detect
   driveway:
@@ -157,12 +156,12 @@ cameras:
     ffmpeg:
       hwaccel_args: auto
       inputs:
-        - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.12:554/cam/realmonitor?channel=1&subtype=0
+        - path: "rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.12:554/cam/realmonitor?channel=1&subtype=0"
           roles:
             - record
             - audio
         # by default, the detect stream is used for the live view in the browser
-        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.12:554/cam/realmonitor?channel=1&subtype=2
+        - path: "rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.12:554/cam/realmonitor?channel=1&subtype=2"
           roles:
             - detect
   backyard:
@@ -170,12 +169,12 @@ cameras:
     ffmpeg:
       hwaccel_args: auto
       inputs:
-        - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.13:554/cam/realmonitor?channel=1&subtype=0
+        - path: "rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.13:554/cam/realmonitor?channel=1&subtype=0"
           roles:
             - record
             - audio
         # by default, the detect stream is used for the live view in the browser
-        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.13:554/cam/realmonitor?channel=1&subtype=2
+        - path: "rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.13:554/cam/realmonitor?channel=1&subtype=2"
           roles:
             - detect
   master_bedroom:
@@ -183,12 +182,12 @@ cameras:
     ffmpeg:
       hwaccel_args: auto
       inputs:
-        - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.14:554/cam/realmonitor?channel=1&subtype=0
+        - path: "rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.14:554/cam/realmonitor?channel=1&subtype=0"
           roles:
             - record
             - audio        
         # by default, the detect stream is used for the live view in the browser
-        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.14:554/cam/realmonitor?channel=1&subtype=2
+        - path: "rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.14:554/cam/realmonitor?channel=1&subtype=2"
           roles:
             - detect
   basement:
@@ -196,12 +195,12 @@ cameras:
     ffmpeg:
       hwaccel_args: auto
       inputs:
-        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.15:554/cam/realmonitor?channel=1&subtype=0
+        - path: "rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.15:554/cam/realmonitor?channel=1&subtype=0"
           roles:
             - record
             - audio
         # by default, the detect stream is used for the live view in the browser
-        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.15:554/cam/realmonitor?channel=1&subtype=2
+        - path: "rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.15:554/cam/realmonitor?channel=1&subtype=2"
           roles:
             - detect
 
