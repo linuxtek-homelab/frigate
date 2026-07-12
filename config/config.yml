@@ -25,8 +25,7 @@ auth:
   hash_iterations: 600000
 
 ffmpeg:
-  #hwaccel_args: preset-intel-qsv-h265
-  hwaccel_args: "auto"
+  hwaccel_args: preset-intel-qsv-h265
   input_args: preset-rtsp-generic
   output_args: 
     record: preset-record-generic-audio-copy
@@ -229,13 +228,25 @@ cameras:
           roles:
             - detect
 
-# Optional: Adjust sort order of cameras in the UI. Larger numbers come later
+# Optional: Configuration for how camera is handled in the GUI.
 ui:
-# By default the cameras are sorted alphabetically.
+  # Optional: Adjust sort order of cameras in the UI. Larger numbers come later (default: shown below)
+  # By default the cameras are sorted alphabetically.
   order: 0
-# Optional: Whether or not to show the camera in the Frigate UI
-  dashboard: true
+  # Optional: Whether or not to show the camera in the Frigate UI (default: shown below)
+  dashboard: True
+
 detect:
+  # Optional: enables detection for the camera (default: shown below)
+  enabled: False
+  # Optional: width of the frame for the input with the detect role (default: use native stream resolution)
   width: 1280
+  # Optional: height of the frame for the input with the detect role (default: use native stream resolution)
   height: 720
+  # Optional: desired fps for your camera for the input with the detect role (default: shown below)
+  # NOTE: Recommended value of 5. Ideally, try and reduce your FPS on the camera.
   fps: 5
+  # Optional: Number of consecutive detection hits required for an object to be initialized in the tracker. (default: 1/2 the frame rate)
+  min_initialized: 2
+  # Optional: Number of frames without a detection before Frigate considers an object to be gone. (default: 5x the frame rate)
+  max_disappeared: 25
