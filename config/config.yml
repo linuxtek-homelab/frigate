@@ -37,9 +37,13 @@ detectors:
   ov_0:
     type: "openvino"
     device: CPU
+    model:
+      path: /openvino-model/fp16/ssdlite_mobilenet_v2.xml
   ov_1:
     type: "openvino"
     device: CPU
+    model:
+      path: /openvino-model/fp16/ssdlite_mobilenet_v2.xml
 
 objects:
   track:
