@@ -1,13 +1,37 @@
 mqtt:
   enabled: false
 
+database:
+  path: /media/frigate_db/frigate.db
+# Default objects to track. Can be overridden at camera level
+
+auth:
+  enabled: true
+  reset_admin_password: false
+  # Optional: Session length in seconds (default: shown below)
+  session_length: 86400 # 24 hours
+  # Optional: Refresh time in seconds (default: shown below)
+  # When the session is going to expire in less time than this setting,
+  # it will be refreshed back to the session_length.
+  refresh_time: 1800 # 30 minutes
+  # Optional: Rate limiting for login failures to help prevent brute force
+  # login attacks (default: shown below)
+  # See the docs for more information on valid values
+  failed_login_rate_limit: None
+  # Optional: Number of hashing iterations for user passwords
+  # As of Feb 2023, OWASP recommends 600000 iterations for PBKDF2-SHA256
+  # NOTE: changing this value will not automatically update password hashes, you
+  #       will need to change each user password for it to apply
+  hash_iterations: 600000
+
 ffmpeg:
-  hwaccel_args: preset-intel-qsv-h265
+  #hwaccel_args: preset-intel-qsv-h265
+  hwaccel_args: "auto"
   input_args: preset-rtsp-generic
   output_args: 
     record: preset-record-generic-audio-copy
-
   retry_interval: 10
+  apply_compatibility: false
 
 detectors:
   ov_0:
@@ -16,10 +40,6 @@ detectors:
   ov_1:
     type: openvino
     device: CPU
-
-database:
-  path: /media/frigate_db/frigate.db
-# Default objects to track. Can be overridden at camera level
 
 objects:
   track:
@@ -132,6 +152,7 @@ snapshots:
 cameras:
   main_floor:
     enabled: true
+    type: "generic"
     ffmpeg:
       inputs:
         - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.10:554/cam/realmonitor?channel=1&subtype=0
@@ -144,6 +165,7 @@ cameras:
             - detect
   front_porch:
     enabled: true
+    type: "generic"
     ffmpeg:    
       inputs:
         - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.11:554/cam/realmonitor?channel=1&subtype=0
@@ -156,6 +178,7 @@ cameras:
             - detect
   driveway:
     enabled: true
+    type: "generic"
     ffmpeg:
       inputs:
         - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.12:554/cam/realmonitor?channel=1&subtype=0
@@ -168,6 +191,7 @@ cameras:
             - detect
   backyard:
     enabled: true
+    type: "generic"
     ffmpeg:
       inputs:
         - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.13:554/cam/realmonitor?channel=1&subtype=0
@@ -180,6 +204,7 @@ cameras:
             - detect
   master_bedroom:
     enabled: true
+    type: "generic"
     ffmpeg:
       inputs:
         - path: rtsp://{FRIGATE_RTSP_USER}:${FRIGATE_RTSP_PASSWORD}@192.168.25.14:554/cam/realmonitor?channel=1&subtype=0
@@ -192,6 +217,7 @@ cameras:
             - detect
   basement:
     enabled: true
+    type: "generic"
     ffmpeg:
       inputs:
         - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.25.15:554/cam/realmonitor?channel=1&subtype=0
